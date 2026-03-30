@@ -29,7 +29,16 @@ class SistemaAsistenciaTest {
         Mockito.verify(repositorio, Mockito.times(1)).guardarEntrada("EMP001");
     }
 
+    @Test
+    @DisplayName("Test 2 - No permite doble marcación consecutiva")
+    public void testNoPermiteDobleEntrada() {
+        Mockito.when(repositorio.existeEmpleado("EMP001")).thenReturn(true);
+        Mockito.when(repositorio.tieneRegistroActivo("EMP001")).thenReturn(true);
 
+        String resultado = sistema.registrarEntrada("EMP001");
+
+        assertEquals("No se permite doble marcación consecutiva", resultado);
+    }
 
 
 }
